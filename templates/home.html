@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Chat Room Project - Home</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Homepage of my flask-based online chat room project." />
-  <link rel="icon" href="favicon.png">
+    <meta charset="UTF-8" />
+    <title>Chat Room Project - Home</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Homepage of my flask-based online chat room project." />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
 </head>
 <body>
-  <h1>Join or Create a Chat Room!</h1>
-  <form>
-    <label for="username">Username:</label>
-    <input type="text" name="username"><br>
-    <input type="text" name="roomcode">
-    <button>Join a Room</button>
-  </form>
-  <button>Create a Room</button>
+    <div id="home-menu-container">
+        <div class="row">
+            <h1>Join or Create a Chat Room!</h1>
+        </div>
+        
+        <div class="row">
+            <form>
+                <label for="username">Username:</label>
+                <input type="text" name="username">
+            </form>
+        </div>
+        <div class="row">
+            <form>
+                <input type="text" name="room-code">
+                <button>Join a Room</button>
+            </form>
+        </div>
+
+        <div class="row">
+            <button id="create-room-button">Create a Room</button>
+        </div>
+    </div>
 </body>
 </html>
