@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Chat Room Project - Chat room</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Homepage of my flask-based online chat room project.">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script type="text/javascript">
+        // function to get message time
+        function getTime() {
+            const date = new Date();
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        windows.onload = function() {
+            // this code will run when page has loaded
+            const username = "{{ username }}"
+            const code = "{{ room-code }}"
+        }
+
+        // tell the server that the client has joined the room
+        socket.emit("join", { "username": username, "code": code});
+
+        // send a message
+        document.getElementById("send-message-button").onclick = function() {
+            const msg = document.getElementById('message').value;
+            const time = getTime();
+            socket.emit("message", {"msg": msg, "username": username, "code": code, "time": time});
+            document.getElementById("message").value = "";  // clear message input
+        };
+
+        // listen for incoming messages
+        socket.on("message", function(data) {
+            const chat = document.getElementById("chat");
+            chat.innerHTML += `<p><strong>${data.time} ${data.username}:</strong> ${data.msg}</p>`;
+            chat.scrollTop = chat.scrollHeight;  // scroll to the latest message
+        });
+    </script>
+</head>
+<body id="chat-body">
+    <h1>Chat Room: {{ code }}</h1>
+    <div id="chat-box">
+        <div id="chat"></div>
+    </div>
+    <input type="text" id="message" placeholder="Enter message" autocomplete="off">
+    <button id="send-message-button">Send</button>
+</body>
+</html>
